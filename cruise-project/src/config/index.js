@@ -8,7 +8,7 @@
 
 export default {
   server: {
-    build: 'https://api.tiejin.cn/command/',
-    dev: 'https://api-sandbox.tiejin.cn/command/',
+    development: 'http://localhost:3001',
+    production:""
   }
 }

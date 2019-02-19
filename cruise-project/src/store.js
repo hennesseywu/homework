@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 //子module
-import login from './pages/login/module'
-import nav1 from  './pages/nav1/module'
+import common from './pages/module'
 
 Vue.use(Vuex)
 
@@ -21,6 +20,6 @@ export default new Vuex.Store({
   },
   //子vuex
   modules: {
-    login,nav1
+    common
   }
 })

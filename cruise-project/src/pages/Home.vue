@@ -14,25 +14,36 @@
     <el-col :span="24" class="main">
       <aside class="menu-expanded">
         <!--nav-->
-        <el-menu :default-active="$route.path" :default-openeds="['3']" class="el-menu-vertical-demo" @open="handleOpen"
+        <el-menu :default-active="$route.path" :default-openeds="['2']" class="el-menu-vertical-demo" @open="handleOpen"
           @close="handleClose" @select="handleselect" unique-opened router>
-          <template v-for="(item,index)  in $router.options.routes">
-            <div v-if="!item.hidden">
-              <el-submenu :index="index+''" v-if="!item.leaf">
-                <template slot="title">
-                  {{item.name}}
-                </template>
-                <div v-for="child in item.children" :key="child.path">
-                  <el-menu-item v-if="!child.hidden" :index="child.path">
-                    <span :class="child.iconCls"></span>
-                    <span class="navigator"> {{child.name}}</span>
-                  </el-menu-item>
-                </div>
-              </el-submenu>
+          <template>
+            <div v-for="(item,index)  in $router.options.routes" :key="index">
+              <div v-if="!item.hidden">
+                <!--multi nodes -->
+                <el-submenu :index="index+''" v-if="!item.leaf">
+                  <template slot="title">
+                    {{item.name}}
+                  </template>
+                  <div v-for="(child,idx) in item.children" :index="idx" :key="idx">
+                    <el-menu-item v-if="!child.hidden">
+                      <span :class="child.iconCls"></span>
+                      <span class="navigator"> {{child.name}}</span>
+                    </el-menu-item>
+                  </div>
+                </el-submenu>
+              </div>
+              <!-- one node -->
+              <el-menu-item v-if="item.leaf&&item.children.length>0" :key="index" :index="item.children[0].path">
+                <span :class="item.children[0].iconCls+' iconCls'"></span>
+                <span class="navigator">{{item.children[0].name}}</span>
+              </el-menu-item>
             </div>
-            <el-menu-item v-if="item.leaf&&item.children.length>0" :key="index" :index="item.children[0].path">
-              <span :class="item.children[0].iconCls"></span>
-              <span class="navigator">{{item.children[0].name}}</span>
+            <!-- bottom-link -->
+            <el-menu-item class="menu-bottom" index="menu-bottom">
+              <span class="history">History</span>
+              <li class="down-delete" v-for="(his,key) in history" :key="key">
+                {{his}}
+              </li>
             </el-menu-item>
           </template>
         </el-menu>
@@ -47,6 +58,9 @@
         </div>
       </section>
     </el-col>
+    <el-col :span="24" class="footer">
+      © Copyright 2019 ThoughtWorks, Inc.
+    </el-col>
   </el-row>
 </template>
 
@@ -54,7 +68,6 @@
   export default {
     data() {
       return {
-        sysName: 'VUE+ELEMENT',
         sysUserName: '',
         sysUserAvatar: '',
         form: {
@@ -66,7 +79,15 @@
           type: [],
           resource: '',
           desc: ''
-        }
+        },
+        history: [
+          "·  bjstdmngbdr02/acceptance_test",
+          "·  bjstdmngbdr03/acceptance_test",
+          "·  bjstdmngbdr04/acceptance_test",
+          "·  bjstdmngbdr05/acceptance_test",
+          "·  bjstdmngbdr06/acceptance_test",
+          "·  bjstdmngbdr07/acceptance_test",
+        ]
       }
     },
     methods: {
@@ -155,23 +176,25 @@
       background: #f3f3f3;
       position: absolute;
       top: 60px;
-      bottom: 0px;
+      bottom: 28px;
       overflow: hidden;
 
       aside {
         background: #2d4054;
-        flex: 0 0 230px;
-        width: 230px;
+        flex: 0 0 270px;
+        width: 270px;
+        margin-left: 135px;
 
-        // position: absolute;
-        // top: 0px;
-        // bottom: 0px;
         .el-menu {
           height: 100%;
           background-color: #2d4054;
 
           .el-menu-item {
             color: #fff !important;
+
+            .iconCls {
+              font-size: 20px;
+            }
 
             &:focus {
               color: #00b4cf !important;
@@ -182,27 +205,50 @@
               color: #00b4cf !important;
               background-color: #435466 !important;
             }
+
+            &:active {
+              color: #00b4cf !important;
+            }
           }
 
           .navigator {
             margin-left: 20px;
           }
         }
+
+        .menu-bottom {
+          position: absolute;
+          bottom: 300px;
+
+          .history {
+            font-size: 24px;
+            color: #ccc;
+          }
+
+          .down-delete {
+            font-size: 12px;
+            color: #999;
+            line-height: 20px;
+
+            &:hover {
+              color: #00b4cf;
+            }
+
+            &:active {
+              color: #00b4cf;
+            }
+
+          }
+        }
       }
 
       .menu-expanded {
-        flex: 0 0 230px;
-        width: 230px;
+        flex: 0 0 270px;
+        width: 270px;
       }
 
       .content-container {
-        // background: #f1f2f7;
         flex: 1;
-        // position: absolute;
-        // right: 0px;
-        // top: 0px;
-        // bottom: 0px;
-        // left: 230px;
         overflow-y: scroll;
         padding: 20px;
 
@@ -225,6 +271,13 @@
           box-sizing: border-box;
         }
       }
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 0px;
+      text-align: center;
+      line-height: 28px;
     }
   }
 </style>

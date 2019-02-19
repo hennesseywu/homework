@@ -1,18 +1,16 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Login from './pages/login/index'
-import Home from './pages/Home.vue'
-import Agent from './pages/agent.vue'
-import user from './pages/nav1/user.vue'
-import Page6 from './pages/nav3/Page6.vue'
-import Store from './store'
+import Login from './pages/login'
+import Home from './pages/Home'
+import Agent from './pages/agent'
+import Help from './pages/help.vue'
 
 Vue.use(Router)
 
 let routes = [{
     path: '/login',
     component: Login,
-    name: '',
+    name: 'Login',
     hidden: true
   },
   {
@@ -22,7 +20,7 @@ let routes = [{
     leaf: true, //only one node
     children: [{
       path: '/dashboard',
-      component: user,
+      component: Help,
       name: 'DASHBOARD',
       iconCls: 'icon-dashboard', //icon
     }, ]
@@ -45,8 +43,8 @@ let routes = [{
     name: 'MY CRUISE',
     leaf: true,
     children: [{
-      path: '/page6',
-      component: Page6,
+      path: '/mycruise',
+      component: Help,
       name: 'MY CRUISE',
       iconCls: 'icon-boat'
     }]
@@ -57,8 +55,8 @@ let routes = [{
     name: 'HELP',
     leaf: true,
     children: [{
-      path: '/user',
-      component: user,
+      path: '/help',
+      component: Help,
       name: 'HELP',
       iconCls: 'icon-life-bouy',
     }]
@@ -78,7 +76,6 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-
   if (to.path == '/login') {
     sessionStorage.removeItem('user');
   }

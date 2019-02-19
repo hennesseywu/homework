@@ -11,20 +11,9 @@ html,
 }
 
 body {
-  font-family: -apple-system,
-    BlinkMacSystemFont,
-    PingFangSC-Regular,
-    "Segoe UI",
-    "Roboto",
-    "Oxygen",
-    "Ubuntu",
-    "Cantarell",
-    "Fira Sans",
-    "Droid Sans",
-    "Hiragino Sans GB",
-    "Microsoft Yahei", "微软雅黑",
-    Arial, Helvetica, STHeiti, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: "Avenir", Arial, Helvetica, sans-serif;
+  color: #2d4054;
+  font-size: 14px;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -145,9 +134,6 @@ li {
   list-style-type: none;
 }
 
-body {
-  font: 14px/1.5 PingFangSC-Regular;
-}
 
 a {
   text-decoration: none;

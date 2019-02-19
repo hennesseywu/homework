@@ -1,4 +1,5 @@
 import axios from 'axios'
+import setting from '../config'
 const axio = axios.create({
   baseURL: process.env.BASE_URL, // node环境的不同，对应不同的baseURL
   timeout: 15000, // 请求的超时时间
@@ -7,7 +8,8 @@ const axio = axios.create({
 // http request 拦截器 
 axio.interceptors.request.use(
   config => {
-    console.log("config",config)
+    config.url = setting.server[process.env.NODE_ENV] + config.url;
+    console.log("config", config)
     return config;
   },
   err => {

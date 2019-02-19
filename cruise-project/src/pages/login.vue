@@ -48,7 +48,6 @@
     },
     methods: {
       ...mapActions("login", ["loginAction"]),//暴露vuex函数
-      ...mapActions(["islogin"]),
       handleLogin() {
         this.$refs.ruleForm2.validate(valid => {
           if (valid) {
